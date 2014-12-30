@@ -18,7 +18,7 @@ def thesaurize(word):
     try:
         response = urllib2.urlopen('http://words.bighugelabs.com/api/2/f42ad92ef7fc3e15b479c2e6b15fe62a/'+word+'/json').read()
     except urllib2.HTTPError:
-        logging.info('error due to: ' + word)
+        logging.info('could not find a synonym for: ' + word)
         return word # error => couldn't find a synonym
     response = json.loads(response)
     suggestions = []

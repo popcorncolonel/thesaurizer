@@ -15,3 +15,9 @@ $("#sendtext").click(function(){
 	oldtext = $("#textbox").val();
 	$.post("/convert", {text: oldtext}, postSuccess, "text");
 });
+
+$("#sendtext").click(function(){
+    console.log('gettin clicked');
+	oldtext = $("#textbox").val();
+	$.post("/convert", {text: oldtext}, postSuccess, "text");
+});

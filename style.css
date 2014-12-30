@@ -31,3 +31,12 @@ button {
     background: white;
     padding: 6px 12px;
 }	
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+}
