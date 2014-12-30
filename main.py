@@ -1,6 +1,7 @@
 import re
 import os
 import json
+import string
 import urllib
 import random
 import jinja2
@@ -15,8 +16,11 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 def thesaurize(word):
+    if not word.islower():
+        return word
+    keys = ['f42ad92ef7fc3e15b479c2e6b15fe62a']
     try:
-        response = urllib2.urlopen('http://words.bighugelabs.com/api/2/f42ad92ef7fc3e15b479c2e6b15fe62a/'+word+'/json').read()
+        response = urllib2.urlopen('http://words.bighugelabs.com/api/2/'+random.choice(keys)+'/'+word+'/json').read()
     except urllib2.HTTPError:
         logging.info('could not find a synonym for: ' + word)
         return word # error => couldn't find a synonym
@@ -37,9 +41,10 @@ def thesaurize(word):
 
 class Convert(webapp2.RequestHandler):
     def post(self):
-        text = self.request.get('text', '')
+        text = self.request.get('text', '')[0:500]
         word_list = text.split()
         converted_word_list = [thesaurize(word) for word in word_list]
+        converted_word_list[0] = converted_word_list[0].capitalize()
         converted_text = " ".join(converted_word_list)
         self.response.write(converted_text)
 

@@ -9,15 +9,17 @@
 <body>
 	<h1>Thesaurizer</h1>
 	<h4>I heard you like synonyms</h4>
-	<textarea id = "textbox" placeholder="enter some text to improve"></textarea><br><br>
-
+	<h5>I detected you appreciate equivalent words</h5>
+	<h6>I gleaned you enjoy similar words</h6>
+	<div id ="inputform">
+	<textarea id = "textbox" placeholder="enter some text to improve" maxlength="500" cols="35" rows="5"></textarea><br><br>
 	<button id = "sendtext">Thesaurize</button>
-
+	</div>
 	<div id="resultdisplay"> 
 		<p id="oldtext"></p>
 		<h3>is now</h3> 
 		<p id="newtext"></p>
-		<button id = "retry">Rethesaurize</button>
+		<button id = "retry">Rethesaurize</button>&nbsp;or&nbsp;<button id = "restart">Restart</button>
 	</div>
 	<footer id="footer"><a  href="http://ebcmsoftware.com" target="_blank">&copy; EBCM Software 2014</a> &nbsp;|&nbsp;  <a id="source" href="https://github.com/popcorncolonel/thesaurizer">Source</a>
   </footer>

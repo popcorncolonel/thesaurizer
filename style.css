@@ -8,6 +8,16 @@ body{
 	margin: 20px 0 auto 0;
 }
 
+h4 {
+    margin: 0 auto;
+}
+h5 {
+    margin: 0 auto;
+}
+h6 {
+    margin: 0 auto 3em auto;
+}
+
 #footer{
   	color: black;
 	text-align: center;
