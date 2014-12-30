@@ -14,16 +14,27 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+keys = ['f42ad92ef7fc3e15b479c2e6b15fe62a'] #older one - ~250 requests left as of 12/29 21:00
+keys = ['81667a40835c5798f1948c4842b4a70d']
 
 def thesaurize(word):
-    if not word.islower():
+    if not re.match(r'^[a-z]+$', word):
         return word
-    keys = ['f42ad92ef7fc3e15b479c2e6b15fe62a']
     try:
-        response = urllib2.urlopen('http://words.bighugelabs.com/api/2/'+random.choice(keys)+'/'+word+'/json').read()
-    except urllib2.HTTPError:
-        logging.info('could not find a synonym for: ' + word)
-        return word # error => couldn't find a synonym
+        key = random.choice(keys)
+    except IndexError:
+        logging.error('FUCK NO API KEYS LEFT')
+        return word
+    try:
+        response = urllib2.urlopen('http://words.bighugelabs.com/api/2/'+key+'/'+word+'/json').read()
+    except urllib2.HTTPError, err:
+        if err.code == 500:
+            logging.error('GOOODDDD NOOOO THIS API KEY IS DOWN: %s' %key)
+            keys.remove(key)
+            return thesaurize(word)
+        if err.code == 404:
+            logging.info('could not find a synonym for: ' + word)
+        return word
     response = json.loads(response)
     suggestions = []
     for part_of_speech in response:
